@@ -1,0 +1,21 @@
+from rest_framework import viewsets, permissions
+from django_filters import rest_framework as filters
+
+from ingredients.serializers import IngredientsSerializer
+from ingredients.models import Ingredients
+
+
+class IngredientsFilter(filters.FilterSet):
+    name = filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Ingredients
+        fields = ['name']
+
+
+class IngredientsViewSet(viewsets.ModelViewSet):
+    queryset = Ingredients.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = IngredientsFilter
+    serializer_class = IngredientsSerializer
+    permission_classes = (permissions.AllowAny,)

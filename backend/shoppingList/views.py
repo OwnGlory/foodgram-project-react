@@ -2,7 +2,6 @@ from rest_framework import viewsets, status, permissions
 from django.http import HttpResponse
 from rest_framework.response import Response
 from collections import defaultdict
-# from django.shortcuts import get_object_or_404
 
 from shoppingList.serializers import ShoppingListSerializer
 from recipe.models import IngredientsRecipe, Recipe

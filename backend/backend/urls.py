@@ -32,6 +32,8 @@ urlpatterns = [
     path('api/recipes/download_shopping_cart/',
          ShoppingListViewSet.as_view({'get': 'list'}),
          name='download_shopping_cart'),
+    path('api/users/me/', UserViewSet.as_view(
+        {'get': 'users_own_profile'}), name='users_own_profile'),
     path('api/', include('djoser.urls')),
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),

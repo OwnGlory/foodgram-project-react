@@ -1,8 +1,6 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-# from users.models import MyUser
-# from users.serializers import UserSerializer
 from subscribe.models import Subscribe
 from recipe.models import Recipe
 from recipe.serializers import RecipeListSerializer
@@ -40,17 +38,6 @@ class SubscribeSerializer(serializers.ModelSerializer):
                 message="Нельзя подписаться второй раз."
             )
         ]
-
-    # def validate(self, data):
-    #     user = self.context['request'].user
-    #     author = self.context['view'].get_author()
-    #     if Subscribe.objects.filter(user=user, author=author).exists():
-    #         raise serializers.ValidationError(
-    #             'Вы уже подписаны на этого пользователя.')
-    #     elif user == author:
-    #         raise serializers.ValidationError(
-    #             'Нельзя подписаться на самого себя')
-    #     return data
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')

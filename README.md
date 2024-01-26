@@ -7,7 +7,7 @@
 
 ## Ссылка на сайт
 
-https://yaprojectthree.hopto.org/signin
+https://yaprojectthree.myftp.org/signin
 
 ## Технологии
 

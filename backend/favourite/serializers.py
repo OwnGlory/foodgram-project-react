@@ -1,9 +1,6 @@
 from rest_framework import serializers
-# from rest_framework.validators import ValidationError
-# from django.shortcuts import get_object_or_404
 
 from favourite.models import Favourite
-# from recipe.models import Recipe
 
 
 class FavouriteSerializer(serializers.ModelSerializer):

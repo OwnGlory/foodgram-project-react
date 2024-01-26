@@ -1,11 +1,7 @@
 from django.db import models
-# from django.contrib.auth import get_user_model
 
 from recipe.models import Recipe
 from users.models import MyUser
-
-
-# User = get_user_model()
 
 
 class ShoppingList(models.Model):

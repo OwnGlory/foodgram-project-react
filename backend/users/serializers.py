@@ -6,6 +6,23 @@ from users.models import MyUser
 from subscribe.models import Subscribe
 
 
+class UserListSerializer(serializers.ModelSerializer):
+
+    is_subscribed = serializers.SerializerMethodField()
+
+    class Meta:
+        fields = ('email', 'id', 'username', 'first_name',
+                  'last_name', 'is_subscribed')
+        model = MyUser
+
+    def get_is_subscribed(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return Subscribe.objects.filter(user=request.user,
+                                            author=obj).exists()
+        return False
+
+
 class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         max_length=150,
@@ -20,11 +37,9 @@ class UserSerializer(serializers.ModelSerializer):
         )
     )
 
-    is_subscribed = serializers.SerializerMethodField()
-
     class Meta:
         fields = ('email', 'id', 'username', 'first_name',
-                  'last_name', 'is_subscribed')
+                  'last_name')
         model = MyUser
 
     def validate_username(self, value):
@@ -32,13 +47,6 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('usermane должен соответсвовать'
                                               'патерну ^[\\w.@+-]+\\Z')
         return value
-
-    def get_is_subscribed(self, obj):
-        request = self.context.get('request')
-        if request and request.user.is_authenticated:
-            return Subscribe.objects.filter(user=request.user,
-                                            author=obj).exists()
-        return False
 
 
 class RegisterDataSerializer(serializers.ModelSerializer):

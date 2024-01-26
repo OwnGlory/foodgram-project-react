@@ -60,6 +60,7 @@ class Recipe(models.Model):
         verbose_name='Время приготовления в минутах',
         validators=[MinValueValidator(1)],
     )
+
     pub_date = models.DateTimeField(
         'Дата публикации рецепта',
         auto_now_add=True,

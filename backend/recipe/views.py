@@ -3,7 +3,6 @@ import logging
 from django_filters import rest_framework as filters
 from rest_framework import permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
-
 from recipe.models import Recipe, Tag
 from recipe.serializers import (
     TagSerializer,

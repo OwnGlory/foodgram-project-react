@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.response import Response
-
 from favourite.models import Favourite
 from favourite.serializers import FavouriteSerializer
 from recipe.models import Recipe

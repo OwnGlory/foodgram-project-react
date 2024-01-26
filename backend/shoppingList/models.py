@@ -1,5 +1,4 @@
 from django.db import models
-
 from recipe.models import Recipe
 from users.models import MyUser
 

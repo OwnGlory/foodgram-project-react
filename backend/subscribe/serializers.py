@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-
 from subscribe.models import Subscribe
 from recipe.models import Recipe
 from recipe.serializers import RecipeListSerializer

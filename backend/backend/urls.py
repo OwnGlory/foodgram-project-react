@@ -1,16 +1,15 @@
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls.static import static
 from rest_framework import routers
 
-from users.views import UserViewSet
-from recipe.views import TagViewSet, RecipeViewSet
-from shoppingList.views import ShoppingListViewSet
 from favourite.views import FavouriteViewSet
-from subscribe.views import SubscribeViewSet
 from ingredients.views import IngredientsViewSet
-
+from recipe.views import RecipeViewSet, TagViewSet
+from shoppingList.views import ShoppingListViewSet
+from subscribe.views import SubscribeViewSet
+from users.views import UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
@@ -27,8 +26,8 @@ urlpatterns = [
     path('api/users/subscriptions/', SubscribeViewSet.as_view(
         {'get': 'list'}), name='subscriptions'),
     path('api/users/<int:pk>/subscribe/', SubscribeViewSet.as_view(
-          {'post': 'subscribe', 'delete': 'subscribe'}
-          ), name='subscribe'),
+        {'post': 'subscribe', 'delete': 'subscribe'}
+    ), name='subscribe'),
     path('api/recipes/download_shopping_cart/',
          ShoppingListViewSet.as_view({'get': 'list'}),
          name='download_shopping_cart'),

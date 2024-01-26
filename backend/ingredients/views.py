@@ -1,8 +1,8 @@
-from rest_framework import viewsets, permissions
 from django_filters import rest_framework as filters
+from rest_framework import permissions, viewsets
 
-from ingredients.serializers import IngredientsSerializer
 from ingredients.models import Ingredients
+from ingredients.serializers import IngredientsSerializer
 
 
 class IngredientsFilter(filters.FilterSet):

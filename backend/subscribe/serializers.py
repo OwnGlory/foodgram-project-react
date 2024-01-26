@@ -52,9 +52,9 @@ class SubscribeSerializer(serializers.ModelSerializer):
         )
         recipes = Recipe.objects.filter(
             author=obj.author
-            )[
-                :recipes_limit
-            ]
+        )[
+            :recipes_limit
+        ]
         return RecipeListSerializer(recipes, many=True).data
 
     def get_recipes_count(self, obj):

@@ -1,9 +1,9 @@
-from rest_framework import viewsets, mixins, permissions, status
-from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework import mixins, permissions, status, viewsets
+from rest_framework.response import Response
 
-from favourite.serializers import FavouriteSerializer
 from favourite.models import Favourite
+from favourite.serializers import FavouriteSerializer
 from recipe.models import Recipe
 
 

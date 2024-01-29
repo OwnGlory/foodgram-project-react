@@ -1,5 +1,6 @@
 from django_filters import rest_framework as filters
 from rest_framework import permissions, viewsets
+
 from ingredients.models import Ingredients
 from ingredients.serializers import IngredientsSerializer
 
@@ -9,7 +10,7 @@ class IngredientsFilter(filters.FilterSet):
 
     class Meta:
         model = Ingredients
-        fields = ['name']
+        fields = ('name',)
 
 
 class IngredientsViewSet(viewsets.ModelViewSet):

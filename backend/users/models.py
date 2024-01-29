@@ -42,9 +42,9 @@ class MyUser(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
+    def __str__(self):
+        return self.username
+
     @property
     def is_admin(self):
         return self.role == self.ADMIN or self.is_superuser
-
-    def __str__(self):
-        return self.username

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
+
 from subscribe.models import Subscribe
 from recipe.models import Recipe
 from recipe.serializers import RecipeListSerializer
@@ -30,13 +31,13 @@ class SubscribeSerializer(serializers.ModelSerializer):
             'recipes',
             'recipes_count',
         )
-        validators = [
+        validators = (
             UniqueTogetherValidator(
                 queryset=Subscribe.objects.all(),
                 fields=('user', 'author',),
                 message="Нельзя подписаться второй раз."
-            )
-        ]
+            ),
+        )
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')

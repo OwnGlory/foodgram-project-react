@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, status, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
+
 from users.permissions import IsAdminOwnerOrReadOnly
 from users.serializers import UserSerializer, UserListSerializer
 from users.models import MyUser
@@ -31,6 +32,5 @@ class UserViewSet(viewsets.ModelViewSet):
         if not request.user.is_authenticated:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         user = request.user
-        print('Aaaaaa')
         serializer = UserListSerializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)

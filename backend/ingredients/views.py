@@ -13,9 +13,10 @@ class IngredientsFilter(filters.FilterSet):
         fields = ('name',)
 
 
-class IngredientsViewSet(viewsets.ModelViewSet):
+class IngredientsViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Ingredients.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = IngredientsFilter
     serializer_class = IngredientsSerializer
     permission_classes = (permissions.AllowAny,)
+    pagination_class = None

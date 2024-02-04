@@ -16,21 +16,23 @@ logger = logging.getLogger(__name__)
 
 
 class RecipeFilter(filters.FilterSet):
-    is_favourite = filters.BooleanFilter(method='filter_is_favourite')
-    in_shopping_list = filters.BooleanFilter(method='filter_in_shopping_list')
-    author = filters.CharFilter(field_name='author__username')
-    tags = filters.CharFilter(field_name='tags__name')
+    is_favorited = filters.BooleanFilter(method='filter_is_favorited')
+    is_in_shopping_cart = filters.BooleanFilter(
+        method='filter_is_in_shopping_cart'
+    )
+    author = filters.CharFilter(field_name='author__id')
+    tags = filters.CharFilter(field_name='tags__slug')
 
     class Meta:
         model = Recipe
-        fields = ('is_favourite', 'author', 'in_shopping_list', 'tags')
+        fields = ('is_favorited', 'author', 'is_in_shopping_cart', 'tags')
 
-    def filter_is_favourite(self, queryset, name, value):
+    def filter_is_favorited(self, queryset, name, value):
         if value:
-            return queryset.filter(favorite__user=self.request.user)
+            return queryset.filter(favourite__user=self.request.user)
         return queryset
 
-    def filter_in_shopping_list(self, queryset, name, value):
+    def filter_is_in_shopping_cart(self, queryset, name, value):
         if value:
             return queryset.filter(shoppinglist__user=self.request.user)
         return queryset
@@ -55,3 +57,4 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TagSerializer
     permission_classes = (permissions.AllowAny,)
     lookup_field = 'id'
+    pagination_class = None

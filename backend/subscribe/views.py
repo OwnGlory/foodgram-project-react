@@ -49,5 +49,8 @@ class SubscribeViewSet(
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         elif request.method == 'DELETE':
             subscribe = Subscribe.objects.filter(author=author, user=user)
+            if not subscribe.exists():
+                return Response('Подписка не найдена.',
+                                status=status.HTTP_400_BAD_REQUEST)
             subscribe.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

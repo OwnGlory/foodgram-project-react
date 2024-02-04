@@ -16,17 +16,17 @@ services:
     env_file:
       - .env
     volumes:
-      - static:/static/
-      - media:/media
+      - static:/backend_static/
+      - media:/media/
     depends_on:
       - db
   frontend:
     image: owningglory/foodgram_frontend
     env_file:
       - .env
-    command: cp -r /app/build/. /static/
+    command: cp -r /app/build/. /frontend_static/
     volumes:
-      - static:/static
+      - static:/frontend_static
     depends_on:
       - db
   gateway:
@@ -34,8 +34,8 @@ services:
     env_file:
       - .env
     volumes:
-      - static:/static/
-      - media:/media
+      - static:/staticfiles/
+      - media:/media/
     ports:
       - 10000:80
     depends_on:

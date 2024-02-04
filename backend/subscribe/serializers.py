@@ -3,7 +3,7 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from subscribe.models import Subscribe
 from recipe.models import Recipe
-from recipe.serializers import RecipeListSerializer
+from recipe.serializers import SubscribeRecipeSerializer
 
 
 class SubscribeSerializer(serializers.ModelSerializer):
@@ -55,7 +55,7 @@ class SubscribeSerializer(serializers.ModelSerializer):
         )[
             :recipes_limit
         ]
-        return RecipeListSerializer(recipes, many=True).data
+        return SubscribeRecipeSerializer(recipes, many=True).data
 
     def get_recipes_count(self, obj):
         return Recipe.objects.filter(author=obj.author).count()

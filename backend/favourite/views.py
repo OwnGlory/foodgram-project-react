@@ -22,7 +22,12 @@ class FavouriteViewSet(
 
     def create(self, request, recipe_id):
         user = request.user
-        recipe = get_object_or_404(Recipe, id=recipe_id)
+        if Recipe.objects.filter(id=recipe_id).exists():
+            recipe = Recipe.objects.get(id=recipe_id)
+        else:
+            return Response(
+                {'errors': 'Рецепта не существует.'},
+                status=status.HTTP_400_BAD_REQUEST)
         if Favourite.objects.filter(user=user, recipe=recipe).exists():
             return Response(
                 {'errors': 'Рецепт уже в избранном.'},
@@ -35,7 +40,10 @@ class FavouriteViewSet(
     def delete(self, request, recipe_id):
         user = request.user
         recipe = get_object_or_404(Recipe, id=recipe_id)
-        favorite = Favourite.objects.filter(recipe=recipe, user=user)
-        favorite.delete()
+        favorite_item = Favourite.objects.filter(recipe=recipe, user=user)
+        if not favorite_item.exists():
+            return Response('Рецепт не найден в избранном.',
+                            status=status.HTTP_400_BAD_REQUEST)
+        favorite_item.delete()
         return Response('Рецепт удален из избранного.',
                         status=status.HTTP_204_NO_CONTENT)

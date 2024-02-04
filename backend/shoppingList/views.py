@@ -1,6 +1,7 @@
 from collections import defaultdict
 
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
 
@@ -39,8 +40,15 @@ class ShoppingListViewSet(viewsets.ModelViewSet):
 
     def delete(self, request, recipe_id):
         user = request.user
-        recipe = Recipe.objects.get(id=recipe_id)
-        ShoppingList.objects.filter(user=user, recipe=recipe).delete()
+        recipe = get_object_or_404(Recipe, id=recipe_id)
+        shopping_list_item = ShoppingList.objects.filter(user=user,
+                                                         recipe=recipe)
+
+        if not shopping_list_item.exists():
+            return Response('Рецепт не найден в списке покупок.',
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        shopping_list_item.delete()
         return Response('Рецепт удален из списка покупок.',
                         status=status.HTTP_204_NO_CONTENT)
 

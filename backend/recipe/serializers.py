@@ -34,7 +34,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class RecipeListSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
-    image = Base64ImageField(required=True)
+    image = serializers.SerializerMethodField('get_image_url')
     author = UserSerializer(
         read_only=True
     )
@@ -71,6 +71,11 @@ class RecipeListSerializer(serializers.ModelSerializer):
                 user=request.user, recipe=instance
             ).exists()
         return False
+
+    def get_image_url(self, obj):
+        if obj.image:
+            return obj.image.url
+        return None
 
 
 class RecipeCreateSerializer(serializers.ModelSerializer):

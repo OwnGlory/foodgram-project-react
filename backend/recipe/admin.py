@@ -26,6 +26,7 @@ class RecipeAdmin(admin.ModelAdmin):
         return Favourite.objects.filter(recipe=obj).count()
     favorites_count.short_description = 'Количество добавлений в избранное'
 
+
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Tag)
 admin.site.register(TagRecipe)

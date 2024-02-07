@@ -19,6 +19,7 @@ class ShoppingList(models.Model):
 
     class Meta:
         verbose_name = 'Список покупок'
+        verbose_name_plural = 'Список покупок'
 
     def __str__(self):
         return f'{self.user} {self.recipe}'
